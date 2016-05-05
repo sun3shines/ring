@@ -17,7 +17,13 @@ def uuid_will_use(uuid,ip,port,home):
         return True
 
     pid = file(proc_pid).read().strip()
-    
+
+def get_pid_cmdline(pid):
+    # 采用psutil吧，是的。
+    return ''    
+def pid_filter(pid,cmdline):
+    return True
+
 def start():
     
     current_pid = get_proc_pid()
@@ -27,11 +33,8 @@ def start():
         data_dir = '/'.join([home,uuid])
         proc_pid = '/'.join(data_dir,'.pid')
         if not os.path.exists(proc_pid):
-            pass
-         
-         
+            pass         
     pass
-
 
 if __name__ == '__main__':
     start()
