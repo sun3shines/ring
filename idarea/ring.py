@@ -3,15 +3,17 @@
 from array import array
 from hashlib import md5
 from struct import unpack_from
-from idarea.uuid import get_vs_uuid
+from idarea.host import getUuids
 
-_NODE_UUIDS = [('cONwMbDv-p5YNJv-Mq53',9031),('ymalmerF-MOWrNg-GmKM',9032),('ewBcdo1A-wniYbw-NctK',9033)]
+_NODE_UUIDS = getUuids()
 _PARTITION_POWER = 16
 _NODE_COUNT = len(_NODE_UUIDS)
 
 def _node2uuid():
+    
     # 排序会重新排序了。采用字符串转化为整数的方式，目前为临时
     # unpack_from('>I',md5(str(data_id)).digest())[0] 
+    
     node2Uuid = sorted(_NODE_UUIDS, key=lambda host : unpack_from('>I',md5(str(host[0])).digest())[0])
     return node2Uuid
 
