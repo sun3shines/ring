@@ -91,7 +91,7 @@ class Mission:
         try:
             self.connect()
   
-            url = self.getUrl()
+            url = t.getUrl()
             ps = t.getParams()
             if ps:
                 url = url + '?' + urllib.urlencode(ps)

@@ -9,7 +9,6 @@ def doProxyPut(request):
     
     return jresponse('0','',request,200)
 
-
 def doProxyGet(request):
     param = json.loads(request.body)
     md5 = param.get('md5') 

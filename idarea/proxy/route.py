@@ -11,7 +11,7 @@ url2view.update({strProxyPut:doProxyPut})
 url2view.update({strProxyGet:doProxyGet})
 
 def process_request(request):
-    
+
     url = request.path
     print url
     if url not in url2view:
