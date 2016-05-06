@@ -14,7 +14,7 @@ class MSt:
 
     @property
     def path(self):
-        return '/'.join([self.prefix,self.part,self.md5,'.data'])
+        return '/'.join([self.prefix,self.part,self.md5])
 
     @property
     def parent(self):

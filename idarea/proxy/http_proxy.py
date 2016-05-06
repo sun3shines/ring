@@ -7,7 +7,6 @@ from webob import Request, Response
 
 def doProxyPut(request):
 
-    import pdb;pdb.set_trace()    
     md5 = request.headers.get('md5')
     length = request.headers.get('Content-Length')
 

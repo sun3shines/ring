@@ -47,6 +47,6 @@ def getfile(src):
  
 if __name__ == '__main__':
     src = '/root/install.log'
-    putfile(src)
-#    getfile(src)
+#    putfile(src)
+    getfile(src)
  
