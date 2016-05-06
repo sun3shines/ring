@@ -7,4 +7,4 @@ PART2NODE = _part2node()
 NODE2UUID = _node2uuid()
 HOST_PATH = ''
 
-HOST_PROC_CONF = '/root/workspace1/merge/ring/idarea/host.conf'
+HOST_PROC_CONF = '/root/workspace1/merge/ring/idarea/proxy/host.conf'

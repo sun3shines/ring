@@ -14,8 +14,5 @@ def objid2uuid(idstr):
 
 if __name__ == '__main__':
     
-    pass
-    
-    import pdb;pdb.set_trace()
     print objid2uuid('a')
     print objid2uuid('b')
