@@ -49,9 +49,7 @@ def sendfile(host,port,part,md5,length,fileinput):
 
 def recvfile(host,port,part,md5):
     t = ObjectGet(part,md5)
-    for data in mission.download(t,host,port):
-        print data
-        print len(data)
+    return mission.download(t, host, port)
 
 if __name__ == '__main__':
     sendfile('127.0.0.1',9032,500,'eeeeeeeee',file('/root/install.log')) 

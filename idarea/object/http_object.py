@@ -1,7 +1,8 @@
 
 import json
 from idarea.common.http import jresponse
-from idarea.proxy.ring.query import objid2address
+from idarea.object.md5st import MSt
+from webob import Request, Response
 
 def doObjectPut(request):
     
@@ -9,7 +10,12 @@ def doObjectPut(request):
     part = request.headers.get('part')
     fileinput = request.environ['wsgi.input']
     print part
-    print len(fileinput.read())
+    
+    m = MSt(str(part),md5)
+    if m.exists:
+        return jresponse('0','file alread exists',request,200)
+    m.put(fileinput)
+    
     return jresponse('0','',request,200)
 
 def doObjectGet(request):
@@ -19,5 +25,12 @@ def doObjectGet(request):
     part = param.get('part')
 
     print part
-    return jresponse('0','',request,200)
+    
+    m = MSt(str(part),md5)
+    if not m.exists:
+        return jresponse('0','file not exists',request,409)
+
+    app_iter = m.get()
+    response = Response(app_iter=app_iter,request=request)
+    return request.get_response(response)
 
