@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import os
 import json
 from idarea.client.http.task import Task
 from idarea.common.urls.proxy import strProxyGet,strProxyPut    
@@ -45,8 +45,19 @@ def getfile(src):
         print data
         print len(data)
  
+def gettest(filedir):
+    for fn in os.listdir(filedir):
+        src = '/'.join([filedir,fn])
+        getfile(src)
+        break
+
+def puttest(filedir):
+    for fn in os.listdir(filedir):
+        src = '/'.join([filedir,fn])
+        putfile(src)
+        
 if __name__ == '__main__':
-    src = '/root/install.log'
-#    putfile(src)
-    getfile(src)
- 
+
+#    puttest('/home/files')
+    gettest('/home/files') 
+    

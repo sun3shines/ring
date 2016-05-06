@@ -2,7 +2,7 @@
 
 import os.path
 import random
-from idarea.static import HOST_PATH
+from idarea.object.static import HOST_PATH
 
 def get_num_random(num=1):
     
