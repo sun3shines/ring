@@ -18,6 +18,7 @@ def _node2uuid():
     return node2Uuid
 
 def _part2node(): 
+    
     part2node = []
     for part in xrange(2**_PARTITION_POWER):
         part2node.append(part % _NODE_COUNT)

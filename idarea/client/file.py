@@ -32,17 +32,23 @@ class FileGet(Task):
     
     def getBody(self):
         return json.dumps({'md5':self.md5})
- 
-if __name__ == '__main__':
-    src = '/root/install.log'
-    t = FilePut(src,md5sum(src)) 
-    
-#    t = FileGet(md5sum(src))
-#    for data in mission.download(t):
-#        print data
-#        print len(data)
 
+def putfile(src):
+    t = FilePut(src,md5sum(src)) 
     t = mission.execute(t)
     print t.status
     print t.data
+
+def getfile(src):
+    t = FileGet(md5sum(src))
+    for data in mission.download(t):
+        print data
+        print len(data)
+ 
+if __name__ == '__main__':
+    src = '/root/install.log'
+    putfile(src)
+#    getfile(src)
+ 
+
         

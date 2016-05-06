@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from idarea.proxy.ring import _PARTITION_POWER,_part2node,_node2uuid
+from idarea.proxy.ring.partition import _PARTITION_POWER,_part2node,_node2uuid
 
 PARTITION_SHIFT = 32 - _PARTITION_POWER
 PART2NODE = _part2node()
