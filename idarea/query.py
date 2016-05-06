@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from array import array
 from hashlib import md5
 from struct import unpack_from

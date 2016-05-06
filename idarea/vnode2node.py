@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from struct import unpack_from
 from hashlib import md5
 from bisect import bisect_left
@@ -9,7 +11,6 @@ def test():
     vnode_count = 1000
 
     old_vnode2node = []
-    new_vnode2node = []
 
     data_count = 10000000
     vnode_range_starts = []

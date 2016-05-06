@@ -1,0 +1,8 @@
+
+精简paste.deploy
+
+研究下 capture_stdio 和 drop_privileges
+
+目前是测试，因此可以大笔一挥了。统统不讲究了。 
+
+目前只要单进程了。是的。

@@ -1,41 +1,31 @@
+# -*- coding: utf-8 -*-
 
-import os
-import os.path
-
+import sys
 from idarea.host import getUuids
-
-def get_proc_pid():
-    return os.getpid()
-
-def uuid_will_use(uuid,ip,port,home):
-    data_dir = '/'.join([home,uuid])
-    proc_pid = '/'.join(data_dir,'.pid')
-    if not os.path.exists(data_dir):
-        return True
-    
-    if not os.path.exists(proc_pid):
-        return True
-
-    pid = file(proc_pid).read().strip()
-
-def get_pid_cmdline(pid):
-    # 采用psutil吧，是的。
-    return ''    
-def pid_filter(pid,cmdline):
-    return True
+from idarea.lib import uuid_will_use,loadProc
+import idarea.static
+from idarea.wsgi import run_wsgi
 
 def start():
     
-    current_pid = get_proc_pid()
-    
     hosts = getUuids()
+    try_times = False
     for uuid,ip,port,home in hosts:
-        data_dir = '/'.join([home,uuid])
-        proc_pid = '/'.join(data_dir,'.pid')
-        if not os.path.exists(proc_pid):
-            pass         
-    pass
+        if not uuid_will_use(uuid, ip, port, home):
+            continue
+        try_times = True
+        
+    if not try_times:
+        print 'no uuid can be use,exit'
+        sys.exit(0) 
+    
+    loadProc(uuid, ip, port, home)
 
+    run_wsgi(idarea.static.PROC_PASTE_CONF, 
+             idarea.static.PROC_PASTE_APP_SECTION, 
+             idarea.static.PROC_HOST,
+             idarea.static.PROC_PORT)
+    
 if __name__ == '__main__':
     start()
     
