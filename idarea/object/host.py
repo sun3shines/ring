@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from idarea.object.static import HOST_PROC_CONF
+
 def getUuids():
     
     uuid_list = []
-    with open('host.conf') as f:
+    with open(HOST_PROC_CONF) as f:
         for line in f.readlines():
             line = line.strip()
             if not line:

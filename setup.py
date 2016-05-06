@@ -44,7 +44,7 @@ setup(
 #    ],
     entry_points={
         'paste.app_factory': [
-            'ringproc = idarea.server:app_factory',
+            'object = idarea.object.server:app_factory',
             ],
         },
     )

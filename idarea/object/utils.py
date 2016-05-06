@@ -2,7 +2,7 @@
 
 import os.path
 import psutil
-import idarea.static 
+import idarea.object.static 
 
 def get_proc_pid():
     return os.getpid()
@@ -10,7 +10,7 @@ def get_proc_pid():
 def uuid_will_use(uuid,ip,port,home):
     
     data_dir = '/'.join([home,uuid])
-    proc_pid = '/'.join(data_dir,'.pid')
+    proc_pid = '/'.join([data_dir,'pid'])
     if not os.path.exists(data_dir):
         return True
     
@@ -18,7 +18,7 @@ def uuid_will_use(uuid,ip,port,home):
         return True
 
     pid = file(proc_pid).read().strip()
-    if not proc_exists(pid, idarea.static.PROC_CMDLINE):
+    if not proc_exists(pid, idarea.object.static.PROC_CMDLINE):
         return True
     
     return False
@@ -27,11 +27,11 @@ def get_pid_cmdline(pid):
     
     # 采用psutil吧，是的。
     try:
-        pr = psutil.Process(pid)
+        pr = psutil.Process(int(pid))
     except:
         return ''
     
-    return ' '.join(pr.cmdline())
+    return ' '.join(pr.cmdline)
     
 def proc_exists(pid,cmdline):
     
@@ -44,12 +44,12 @@ def loadProc(uuid, ip, port, home):
     currentpid = get_proc_pid()
     
     data_dir = '/'.join([home,uuid])
-    proc_pid = '/'.join(data_dir,'.pid')
+    proc_pid = '/'.join([data_dir,'pid'])
     
-    idarea.static.PROC_DATA_DIR = data_dir
-    idarea.static.PROC_HOST = ip
-    idarea.static.PROC_PORT = port
-    idarea.static.PROC_UUID = uuid
+    idarea.object.static.PROC_DATA_DIR = data_dir
+    idarea.object.static.PROC_HOST = ip
+    idarea.object.static.PROC_PORT = int(port)
+    idarea.object.static.PROC_UUID = uuid
     
     if not os.path.exists(data_dir):
         os.mkdir(data_dir)
