@@ -3,7 +3,7 @@
 from array import array
 from hashlib import md5
 from struct import unpack_from
-from idarea.host import getUuids
+from idarea.proxy.host import getUuids
 
 _NODE_UUIDS = getUuids()
 _PARTITION_POWER = 16
@@ -17,7 +17,7 @@ def _node2uuid():
     node2Uuid = sorted(_NODE_UUIDS, key=lambda host : unpack_from('>I',md5(str(host[0])).digest())[0])
     return node2Uuid
 
-def _part2node():
+def _part2node(): 
     part2node = []
     for part in xrange(2**_PARTITION_POWER):
         part2node.append(part % _NODE_COUNT)

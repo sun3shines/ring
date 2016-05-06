@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from idarea.host import getUuids
+from idarea.object.host import getUuids
 from idarea.object.utils import uuid_will_use,loadProc
 import idarea.object.static
 from idarea.common.wsgi import run_wsgi

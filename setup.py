@@ -45,6 +45,7 @@ setup(
     entry_points={
         'paste.app_factory': [
             'object = idarea.object.server:app_factory',
+            'proxy = idarea.proxy.server:app_factory'
             ],
         },
     )
