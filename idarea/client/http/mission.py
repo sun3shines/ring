@@ -110,18 +110,18 @@ class Mission:
         finally:
             self.close()
 
-def getMission():
+def getMission(host,port):
 
-    return Mission(SERVER_HTTP_HOST,SERVER_HTTP_PORT,SERVER_HTTP_TIMEOUT)
+    return Mission(host,port,SERVER_HTTP_TIMEOUT)
 
-def execute(t):
+def execute(t,host=SERVER_HTTP_HOST,port=SERVER_HTTP_PORT):
     
-    with getMission() as m:
+    with getMission(host,port) as m:
         m.http(t)
     
     return t 
 
-def download(t):
-    m = getMission()
+def download(t,host=SERVER_HTTP_HOST,port=SERVER_HTTP_PORT):
+    m = getMission(host,port)
     return m.download(t)
 

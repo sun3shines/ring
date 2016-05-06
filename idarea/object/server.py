@@ -5,9 +5,8 @@ from __future__ import with_statement
 from eventlet import Timeout
 from webob import Request, Response
 
-def process_request(request):
-    print request.path_info
-    
+from idarea.object.route import process_request
+
 class ServerController(object):
 
     def __init__(self, conf):

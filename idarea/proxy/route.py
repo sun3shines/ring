@@ -16,5 +16,4 @@ def process_request(request):
     print url
     if url not in url2view:
         return jresponse('-1','url error',request,404)
-     
     return url2view[url](request)
