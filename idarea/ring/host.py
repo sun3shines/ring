@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from idarea.proxy.variable import HOST_PROC_CONF
+from idarea.ring.static import HOST_PROC_CONF
 
 def getUuids():
     

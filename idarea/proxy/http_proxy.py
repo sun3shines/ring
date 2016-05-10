@@ -1,7 +1,7 @@
 
 import json
 from idarea.common.http import jresponse
-from idarea.proxy.ring.query import objid2address
+from idarea.ring.query import objid2address
 from idarea.proxy.transmit import sendfile,recvfile
 from webob import Request, Response
 
