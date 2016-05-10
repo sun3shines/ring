@@ -7,6 +7,9 @@ def getUuids():
     uuid_list = []
     with open(HOST_PROC_CONF) as f:
         for line in f.readlines():
+            if line.startswith('#'):
+                continue
+            
             line = line.strip()
             if not line:
                 continue

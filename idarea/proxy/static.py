@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from idarea.ring.partition import _PARTITION_POWER
+from idarea.ring.static import _PARTITION_POWER
 
 PARTITION_SHIFT = 32 - _PARTITION_POWER
 HOST_PATH = ''
