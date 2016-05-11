@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from idarea.ring.utils import get_all_ring_set
+
 class migrate_global:
     def __init__(self):
         self.PROC_CMDLINE = 'python migrate_run.py'
@@ -16,5 +18,12 @@ class migrate_global:
         self.PUSH_SUFFIX = '.push'
         
         self.PORT_ADDITION = 100
+        self.ALL_RING_SET = get_all_ring_set()
+        
+        self.PAST_PARTS = []
+        self.TRANSMIT_PARTS = []
+        self.UPGRADED_PARTS = []
+        self.PULLED_PARTS = []
+        self.PUSHED_PARTS = []
         
 migrateObj = migrate_global()

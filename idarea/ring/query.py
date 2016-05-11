@@ -7,10 +7,8 @@ from struct import unpack_from
 from idarea.proxy.static import PARTITION_SHIFT
 from idarea.ring.variable import LOAD_RING_SET,LOAD_HOST_LIST
 
-def objid2address(idstr):
+def part2addressEx(part,ring_set):
     
-    part = unpack_from('>I',md5(str(idstr)).digest())[0] >> PARTITION_SHIFT
-    ring_set = LOAD_RING_SET 
     host_list = LOAD_HOST_LIST 
     for hostUuid  in ring_set:
         if part in ring_set[hostUuid]:
@@ -21,7 +19,19 @@ def objid2address(idstr):
             host = host_info[1]
             port = int(host_info[2])  
     
+    return host,port,part,hostUuid
+
+def part2address(part,ring_set):
+    
+    host,port,part,hostUuid = part2addressEx(part, ring_set)
     return host,port,part
+
+def objid2address(idstr):
+    
+    part = unpack_from('>I',md5(str(idstr)).digest())[0] >> PARTITION_SHIFT
+    ring_set = LOAD_RING_SET 
+    
+    return part2address(part, ring_set)
 
 if __name__ == '__main__':
     import pdb;pdb.set_trace() 

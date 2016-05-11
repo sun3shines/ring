@@ -12,6 +12,17 @@ from struct import unpack_from
 from idarea.ring.static import RING_SET_DIR,PART_TOTAL
 from idarea.ring.host import NODE_UUIDS,RING_SET_LIST
 
+def get_all_ring_set():
+    all_ring_set = {}
+    
+    for ringobj in RING_SET_LIST:
+        ring_time,ring_seq = ringobj
+        ring_set_path = '/'.join([RING_SET_DIR,'_'.join(list(ringobj))])
+        with open(ring_set_path,'r') as f:
+            ring_set = json.load(f)        
+        all_ring_set.update({str(ring_seq):ring_set})
+    return all_ring_set
+    
 def get_previous_set():
     
     part_set = {}
