@@ -9,9 +9,10 @@ from idarea.common.md5 import md5sum
 
 class ObjectPut(Task):
     
-    def __init__(self,part,md5,length,fileinput):
+    def __init__(self,part,seq,md5,length,fileinput):
         
         self.part = part
+        self.seq = seq
         self.md5 = md5
         self.length = length
         self.fileinput = fileinput
@@ -25,6 +26,7 @@ class ObjectPut(Task):
     def getHeaders(self):
         return {'md5':self.md5,
                 'part':self.part,
+                'part_seq':self.seq,
                 'Content-Length':self.length}
         
 class ObjectGet(Task):
@@ -40,9 +42,9 @@ class ObjectGet(Task):
         return json.dumps({'md5':self.md5,
                            'part':self.part})
 
-def sendfile(host,port,part,md5,length,fileinput):
+def sendfile(host,port,part,seq,md5,length,fileinput):
     
-    t = ObjectPut(part,md5,length,fileinput) 
+    t = ObjectPut(part,seq,md5,length,fileinput) 
     t = mission.execute(t,host,port)
     print t.status
     print t.data

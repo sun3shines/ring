@@ -11,7 +11,7 @@ class Mission:
     def __init__(self,host,port,timeout):
         
         self.host= host
-        self.port = port
+        self.port = int(port)
         self.conn = None
         self.connection_flag = False
         self.readsize = 4096

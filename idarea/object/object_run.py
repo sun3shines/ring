@@ -5,8 +5,8 @@ import sys
 from idarea.object.utils import uuid_will_use,loadProc
 import idarea.object.static
 from idarea.common.wsgi import run_wsgi
-from idarea.ring.load import load_ring
-LOAD_RING_SET = load_ring()
+from idarea.ring.load import object_load_ring
+LOAD_RING_SET = object_load_ring()
 LOAD_HOST_LIST = LOAD_RING_SET.pop('hostList')
 
 def start():

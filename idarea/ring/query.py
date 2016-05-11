@@ -5,8 +5,8 @@ from hashlib import md5
 from struct import unpack_from
 
 from idarea.proxy.static import PARTITION_SHIFT
-from idarea.ring.load import load_ring
-LOAD_RING_SET = load_ring()
+from idarea.ring.load import proxy_load_ring
+LOAD_RING_SET,CURRENT_RING_SEQ = proxy_load_ring()
 LOAD_HOST_LIST = LOAD_RING_SET.pop('hostList')
 
 def objid2address(idstr):
@@ -21,7 +21,7 @@ def objid2address(idstr):
     for host_info in host_list:
         if host_info[0] == hostUuid:
             host = host_info[1]
-            port = host_info[2]  
+            port = int(host_info[2])  
     
     return host,port,part
 

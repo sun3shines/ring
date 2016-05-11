@@ -8,10 +8,11 @@ def doObjectPut(request):
     
     md5 = request.headers.get('md5')
     part = request.headers.get('part')
+    seq = request.headers.get('part_seq')
     fileinput = request.environ['wsgi.input']
     print part
     
-    m = MSt(str(part),md5)
+    m = MSt(str(part),md5,seq=seq)
     if m.exists:
         return jresponse('0','file alread exists',request,200)
     m.put(fileinput)

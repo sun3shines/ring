@@ -1,7 +1,7 @@
 
 import json
 from idarea.common.http import jresponse
-from idarea.ring.query import objid2address
+from idarea.ring.query import objid2address,CURRENT_RING_SEQ
 from idarea.proxy.transmit import sendfile,recvfile
 from webob import Request, Response
 
@@ -12,8 +12,10 @@ def doProxyPut(request):
 
     fileinput = request.environ['wsgi.input']
     host,port,part = objid2address(md5)
-    print host,port,part
-    sendfile(host, port, part, md5, length,fileinput)
+    
+    seq = CURRENT_RING_SEQ
+    print host,port,part,seq
+    sendfile(host, port, part,seq, md5, length,fileinput)
     
     return jresponse('0','',request,200)
 

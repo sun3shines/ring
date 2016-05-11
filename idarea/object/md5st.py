@@ -6,9 +6,10 @@ from idarea.object.static import PROC_DATA_DIR
 
 class MSt:
 
-    def __init__(self,part,md5):
+    def __init__(self,part,md5,seq=0):
         self.prefix = PROC_DATA_DIR
         self.part = part
+        self.seq = seq
         self.md5 = md5
         self.readsize = 4096 
 
@@ -16,6 +17,10 @@ class MSt:
     def path(self):
         return '/'.join([self.prefix,self.part,self.md5])
 
+    @property
+    def seq_path(self):
+        return '/'.join([self.prefix,self.part,'seq'])
+    
     @property
     def parent(self):
         return '/'.join([self.prefix,self.part])
@@ -37,7 +42,9 @@ class MSt:
         
         if not os.path.exists(self.parent):
             os.mkdir(self.parent)
-        
+            with open(self.seq_path,'w') as f:
+                f.write(str(self.seq))
+                
         with open(self.path,'w') as f:
             while True:
                 data = fileinput.read(self.readsize)
