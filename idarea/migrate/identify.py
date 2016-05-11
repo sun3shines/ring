@@ -7,16 +7,7 @@ from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX
 from idarea.migrate.static import migrateObj
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.ring.query import part2addressEx
-
-def get_part_seq(obj,latest_seq):
-    
-    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,obj,'seq'])
-    if not os.path.exists(path):
-        return latest_seq
-    
-    with open(path,'r') as f:
-        seq = int(f.read())
-    return seq
+from idarea.migrate.lib import get_part_seq
 
 def process_init_parts():
     
@@ -53,3 +44,4 @@ def process_past_parts():
             
             seq = stepping_seq
             
+

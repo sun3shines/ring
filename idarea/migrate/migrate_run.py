@@ -8,6 +8,7 @@ from idarea.common.wsgi import run_wsgi
 
 from idarea.ring.variable import NODE_UUIDS as MIGRAGE_HOST_LIST
 from idarea.migrate.identify import process_init_parts,process_past_parts
+from idarea.migrate.process import transmit_parts,upgrade_parts
 
 def start():
 
@@ -27,12 +28,11 @@ def start():
     loadMigrateProc(uuid, ip, port, home)
     print 'load migrate proc finished'
     print migrateObj.MIGRATE_HOST,migrateObj.MIGRATE_PORT,migrateObj.MIGRATE_UUID
-    import pdb;pdb.set_trace()
 
     process_init_parts()
     process_past_parts()
-    
-    import pdb;pdb.set_trace()
+    transmit_parts()
+    upgrade_parts()
     pass    
     # run_wsgi(migrateObj.MIGRATE_PASTE_CONF, 
     #          migrateObj.MIGRATE_PASTE_APP_SECTION, 
