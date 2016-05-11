@@ -3,7 +3,6 @@
 from idarea.ring.static import _PARTITION_POWER
 
 PARTITION_SHIFT = 32 - _PARTITION_POWER
-HOST_PATH = ''
 
 PROC_HOST = '127.0.0.1'
 PROC_PORT = 9030

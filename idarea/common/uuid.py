@@ -2,7 +2,7 @@
 
 import os.path
 import random
-from idarea.object.static import HOST_PATH
+
 
 def get_num_random(num=1):
     
@@ -57,7 +57,7 @@ def get_vs_uuid():
     return vs_uuid
     
 def loadUuid():
-    
+    HOST_PATH = ''
     if not os.path.exists(HOST_PATH):
         uuid = get_vs_uuid()
         with open(HOST_PATH,'w') as f:

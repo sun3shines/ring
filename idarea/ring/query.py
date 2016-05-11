@@ -5,9 +5,7 @@ from hashlib import md5
 from struct import unpack_from
 
 from idarea.proxy.static import PARTITION_SHIFT
-from idarea.ring.load import proxy_load_ring
-LOAD_RING_SET,CURRENT_RING_SEQ = proxy_load_ring()
-LOAD_HOST_LIST = LOAD_RING_SET.pop('hostList')
+from idarea.ring.variable import LOAD_RING_SET,LOAD_HOST_LIST
 
 def objid2address(idstr):
     

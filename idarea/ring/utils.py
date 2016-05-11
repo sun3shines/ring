@@ -8,26 +8,19 @@ import json
 import copy
 from hashlib import md5
 from struct import unpack_from
-from idarea.ring.host import getUuids
 
-from idarea.ring.static import RING_SET_DIR,_PARTITION_POWER
-PART_TOTAL = 2**_PARTITION_POWER
+from idarea.ring.static import RING_SET_DIR,PART_TOTAL
+from idarea.ring.host import NODE_UUIDS,RING_SET_LIST
 
 def get_previous_set():
     
     part_set = {}
-    if not os.path.exists(RING_SET_DIR):
+    if not RING_SET_LIST:
         return part_set,-1
 
-    objs = os.listdir(RING_SET_DIR)
-    if not objs:
-        return part_set,-1
+    parent_time,parent_seq = RING_SET_LIST[-1]
     
-    set_info = [tuple(obj.split('_')) for obj in objs]
-    new_set_info = sorted(set_info, key=lambda host : host[1])
-    parent_time,parent_seq = new_set_info[-1]
-    
-    ring_set_path = '/'.join([RING_SET_DIR,'_'.join(list(new_set_info[-1]))])
+    ring_set_path = '/'.join([RING_SET_DIR,'_'.join(list(RING_SET_LIST[-1]))])
     with open(ring_set_path,'r') as f:
         part_set = json.load(f)
         
@@ -35,17 +28,11 @@ def get_previous_set():
 
 def get_new_hosts():
     
-    _NODE_UUIDS = getUuids()
-    node2Uuid = sorted(_NODE_UUIDS, key=lambda host : unpack_from('>I',md5(str(host[0])).digest())[0])
+    node2Uuid = sorted(NODE_UUIDS, key=lambda host : unpack_from('>I',md5(str(host[0])).digest())[0])
     return node2Uuid
 
 def dump_ring_set(ring_set,current_sequence):
     
-#    for key in ring_set:
-#        if 'hostList' == key:
-#            continue
-#        print key,ring_set[key]
-
     ring_set_path = '/'.join([RING_SET_DIR,'_'.join([str(int(time.time())),str(current_sequence)])])
     with open(ring_set_path,'w') as f:
         json.dump(ring_set,f)
