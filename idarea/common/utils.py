@@ -3,9 +3,8 @@
 import os.path
 import psutil
 import idarea.object.static 
-import idarea.migrate.static
 
-from idarea.migrate.static import PORT_ADDITION
+from idarea.migrate.static import migrateObj
 
 MIGRATE_SUFFIX = 'migratepid'
 OBJECT_SUFFIX = 'objectpid'
@@ -54,7 +53,7 @@ def object_uuid_will_use(uuid,ip,port,home):
 def migrate_uuid_will_use(uuid,ip,port,home):
     
     return uuid_will_use(uuid, ip, port, home, MIGRATE_SUFFIX,
-                         idarea.migrate.static.PROC_CMDLINE)
+                         migrateObj.PROC_CMDLINE)
     
 def loadProc(uuid, ip, port, home,suffix):
 
@@ -83,10 +82,10 @@ def loadObjectProc(uuid, ip, port, home):
 def loadMigrateProc(uuid, ip, port, home):
     
     data_dir = '/'.join([home,uuid])
-    idarea.migrate.static.MIGRATE_DATA_DIR = data_dir
-    idarea.migrate.static.MIGRATE_HOST = ip
-    idarea.migrate.static.MIGRATE_PORT = int(port) + PORT_ADDITION
-    idarea.migrate.static.MIGRATE_UUID = uuid
+    migrateObj.MIGRATE_DATA_DIR = data_dir
+    migrateObj.MIGRATE_HOST = ip
+    migrateObj.MIGRATE_PORT = int(port) + migrateObj.PORT_ADDITION
+    migrateObj.MIGRATE_UUID = uuid
     
     loadProc(uuid, ip, port, home,MIGRATE_SUFFIX)
     
