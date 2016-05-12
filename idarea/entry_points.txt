@@ -1,0 +1,4 @@
+[paste.app_factory]
+object = idarea.object.server:app_factory
+proxy = idarea.proxy.server:app_factory
+migrate = idarea.migrate.server:app_factory

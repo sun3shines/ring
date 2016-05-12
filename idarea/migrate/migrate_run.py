@@ -7,8 +7,9 @@ from idarea.migrate.static import migrateObj
 from idarea.common.wsgi import run_wsgi
 
 from idarea.ring.variable import NODE_UUIDS as MIGRAGE_HOST_LIST
-from idarea.migrate.identify import process_init_parts,process_past_parts
-from idarea.migrate.process import transmit_parts,upgrade_parts,latest_parts
+
+from idarea.migrate.test.identify import process_init_parts,process_past_parts
+from idarea.migrate.test.process import transmit_parts,upgrade_parts,latest_parts
 
 def start():
 

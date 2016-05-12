@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from idarea.ring.utils import get_all_ring_set
+import Queue
+from idarea.common.cache.locklist import Mylist
 
 class migrate_global:
     def __init__(self):
@@ -24,5 +26,12 @@ class migrate_global:
         self.TRANSMIT_PARTS = []
         self.UPGRADED_PARTS = []
         self.LATEST_PARTS = []
+        
+        self.PAST_QUEUE = Queue.Queue()
+        self.TRANSMIT_QUEUE = Queue.Queue()
+        self.UPGRADED_QUEUE = Queue.Queue()
+        self.LATEST_QUEUE = Queue.Queue()
+        
+        self.PROCESS_OBJS = Mylist()
         
 migrateObj = migrate_global()
