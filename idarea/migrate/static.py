@@ -23,7 +23,6 @@ class migrate_global:
         self.PAST_PARTS = []
         self.TRANSMIT_PARTS = []
         self.UPGRADED_PARTS = []
-        self.PULLED_PARTS = []
-        self.PUSHED_PARTS = []
+        self.LATEST_PARTS = []
         
 migrateObj = migrate_global()

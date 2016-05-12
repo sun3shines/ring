@@ -7,7 +7,8 @@ def transmit_parts():
     
     for part_info in migrateObj.TRANSMIT_PARTS:
         part = part_info[2]
-        transmit(part)
+        seq = part_info[4]
+        transmit(part,seq)
         
 def upgrade_parts():
     
@@ -15,3 +16,9 @@ def upgrade_parts():
         part,upgrade_seq = part_info
         upgrade(part, upgrade_seq)
         
+
+def latest_parts():
+    
+    for part in migrateObj.LATEST_PARTS:
+        print 'latest part: %s' %(str(part))
+    

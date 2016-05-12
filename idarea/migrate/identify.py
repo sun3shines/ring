@@ -26,6 +26,8 @@ def process_init_parts():
         seq = get_part_seq(obj,latest_seq)
         if seq < latest_seq:
             migrateObj.PAST_PARTS.append((int(obj),seq)) 
+        else:
+            migrateObj.LATEST_PARTS.append(int(obj))
             
 def process_past_parts():
     
@@ -40,6 +42,7 @@ def process_past_parts():
             
             if int(stepping_seq) == int(CURRENT_RING_SEQ):
                 migrateObj.UPGRADED_PARTS.append((part,stepping_seq))
+                migrateObj.LATEST_PARTS.append(part)
                 break
             
             seq = stepping_seq

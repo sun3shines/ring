@@ -14,11 +14,11 @@ def get_part_seq(obj,latest_seq):
     return seq
 
 
-def transmit(part):
+def transmit(part,seq):
     
     src = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)])
     dst = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)+'.push'])
-    print 'transmit part: %s' % (dst)
+    print 'transmit part: %s %s' % (dst,str(seq))
 #    shutil.move(src, dst)
 
 def upgrade(part,seq):
