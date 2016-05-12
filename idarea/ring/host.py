@@ -24,11 +24,11 @@ def get_ring_list():
     if not os.path.exists(RING_SET_DIR):
         return []
 
-    objs = os.listdir(RING_SET_DIR)
-    if not objs:
+    ring_objs = os.listdir(RING_SET_DIR)
+    if not ring_objs:
         return []
     
-    set_info = [tuple(obj.split('_')) for obj in objs]
+    set_info = [tuple(ring_obj.split('_')) for ring_obj in ring_objs]
     new_set_info = sorted(set_info, key=lambda host : host[1])
     return new_set_info
 

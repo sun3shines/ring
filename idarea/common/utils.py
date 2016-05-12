@@ -8,7 +8,8 @@ from idarea.migrate.static import migrateObj
 
 MIGRATE_SUFFIX = 'migratepid'
 OBJECT_SUFFIX = 'objectpid'
-
+PART_SEQ = 'seq'
+MD5_HEAD = '.head'
 
 def get_proc_pid():
     return os.getpid()

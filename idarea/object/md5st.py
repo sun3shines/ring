@@ -3,7 +3,7 @@
 import os.path
 import os
 from idarea.object.static import PROC_DATA_DIR
-
+from idarea.common.utils import PART_SEQ
 class MSt:
 
     def __init__(self,part,md5,seq=0):
@@ -19,7 +19,7 @@ class MSt:
 
     @property
     def seq_path(self):
-        return '/'.join([self.prefix,self.part,'seq'])
+        return '/'.join([self.prefix,self.part,PART_SEQ])
     
     @property
     def parent(self):

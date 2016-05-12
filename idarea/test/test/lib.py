@@ -2,10 +2,11 @@
 import os
 import shutil
 from idarea.migrate.static import migrateObj
+from idarea.common.utils import PART_SEQ
 
 def get_part_seq(obj,latest_seq):
     
-    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,obj,'seq'])
+    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,obj,PART_SEQ])
     if not os.path.exists(path):
         return latest_seq
     
@@ -24,7 +25,7 @@ def transmit(part,seq):
 def upgrade(part,seq):
     
     print 'upgrade part: %s %s' % (str(part),str(seq))
-#    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part),'seq'])
+#    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part),PART_SEQ])
 #    with open(path,'w') as f:
 #        f.write(str(seq))
     
