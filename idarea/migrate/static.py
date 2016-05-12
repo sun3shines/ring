@@ -32,6 +32,6 @@ class migrate_global:
         self.UPGRADED_QUEUE = Queue.Queue()
         self.LATEST_QUEUE = Queue.Queue()
         
-        self.PROCESS_OBJS = Mylist()
+        self.PROCESS_PART_OBJS = Mylist()
         
 migrateObj = migrate_global()

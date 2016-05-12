@@ -13,7 +13,7 @@ def transmit(part,seq):
     part_dir = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)])
     print 'transmit part: %s %s' % (part_dir,str(seq))
     
-    msg_list = []
+    msg_list = {}
     md5_objs = fs_get_md5_list(part)
     for md5_obj in md5_objs:
         if md5_obj.endswith(MD5_HEAD):
@@ -23,7 +23,7 @@ def transmit(part,seq):
         else:
             md5 = md5_obj
             hostUuid = migrateObj.MIGRATE_UUID
-        msg_list.append({md5:hostUuid})
+        msg_list.update({md5:hostUuid})
     http_transmit_part(part, seq, msg_list)
     
 def upgrade(part,seq):

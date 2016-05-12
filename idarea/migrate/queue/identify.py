@@ -17,10 +17,6 @@ def process_init_parts():
         part_objs = fs_get_part_list()
         for part_obj in part_objs:
             
-            if migrateObj.PROCESS_OBJS.has_val(int(part_obj)):
-                continue
-            migrateObj.PROCESS_OBJS.put(int(part_obj))
-            
             seq = get_seq(int(part_obj))
             if seq < latest_seq:
                 migrateObj.PAST_QUEUE.put((int(part_obj),seq)) 

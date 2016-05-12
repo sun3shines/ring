@@ -24,6 +24,12 @@ def set_seq(part,seq):
     with open(path,'w') as f:
         f.write(str(seq))
 
+def set_md5_src(part,md5,hostUuid):
+    
+    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part),md5+MD5_HEAD])
+    with open(path,'w') as f:
+        f.write(hostUuid)
+
 def get_md5_head(path):
     
     with open(path,'r') as f:
@@ -56,11 +62,25 @@ def fs_get_part_list():
 def fs_make_part(part,seq,md5_list):
     
     part_dir = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)])
+    
     if not os.path.exists(part_dir):
         os.mkdir(part_dir)
-    
-    alread_md5_ojbs = fs_get_md5_list(part)
-    
+        
     set_seq(part, seq)
     
-    
+    alread_md5_ojbs = fs_get_md5_list(part)
+    for md5,hostUuid in md5_list.items():
+        exists = False
+        for alread_md5 in alread_md5_ojbs:
+            if alread_md5 == md5:
+                exists = True
+                break
+            if alread_md5 == md5 + MD5_HEAD:
+                set_md5_src(part, md5, hostUuid)
+                exists = True
+                break
+        if exists:
+            continue
+        set_md5_src(part, md5, hostUuid)
+        
+        
