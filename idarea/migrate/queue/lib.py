@@ -6,6 +6,7 @@ from idarea.migrate.static import migrateObj
 from idarea.common.utils import PART_SEQ,MD5_HEAD
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX
+from idarea.ring.variable import LOAD_HOST_LIST
 
 def get_seq(part):
     
@@ -26,6 +27,7 @@ def set_seq(part,seq):
 
 def set_md5_src(part,md5,hostUuid):
     
+    print 'set md5 src hostUuid: %s %s' % (md5,hostUuid)
     path = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part),md5+MD5_HEAD])
     with open(path,'w') as f:
         f.write(hostUuid)
@@ -35,6 +37,15 @@ def get_md5_head(path):
     with open(path,'r') as f:
         hostUuid = f.read()
     return hostUuid
+
+def get_http_addr(dstHostUuid):
+    
+    for host_info in LOAD_HOST_LIST:
+        if host_info[0] == dstHostUuid:
+            host = host_info[1]
+            port = int(host_info[2])  
+            break
+    return host,port
 
 def fs_get_md5_list(part):
     

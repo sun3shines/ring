@@ -7,10 +7,9 @@ from idarea.migrate.static import migrateObj
 from idarea.common.wsgi import run_wsgi
 
 from idarea.ring.variable import NODE_UUIDS as MIGRAGE_HOST_LIST
-
-from idarea.migrate.test.identify import process_init_parts,process_past_parts
-from idarea.migrate.test.process import transmit_parts,upgrade_parts,latest_parts
-
+from idarea.migrate.queue.thread import doProcessInitParts,doProcessPastParts,\
+    doTransmitParts,doUpgradeParts,doLatestParts
+    
 def start():
 
     pass
@@ -30,16 +29,16 @@ def start():
     print 'load migrate proc finished'
     print migrateObj.MIGRATE_HOST,migrateObj.MIGRATE_PORT,migrateObj.MIGRATE_UUID
 
-    process_init_parts()
-    process_past_parts()
-    transmit_parts()
-    upgrade_parts()
-    latest_parts()
-    pass    
-    # run_wsgi(migrateObj.MIGRATE_PASTE_CONF, 
-    #          migrateObj.MIGRATE_PASTE_APP_SECTION, 
-    #          migrateObj.MIGRATE_HOST,
-    #          migrateObj.MIGRATE_PORT)
+    doProcessInitParts().start()
+    doProcessPastParts().start()
+    doTransmitParts().start()
+    doUpgradeParts().start()
+    doLatestParts().start()
+    
+    run_wsgi(migrateObj.MIGRATE_PASTE_CONF, 
+              migrateObj.MIGRATE_PASTE_APP_SECTION, 
+              migrateObj.MIGRATE_HOST,
+              migrateObj.MIGRATE_PORT)
    
 if __name__ == '__main__':
     start() 

@@ -23,9 +23,9 @@ class PartTransmit(Task):
                            'seq':str(self.seq),
                            'md5list':self.md5_list})
     
-def http_transmit_part(part,seq,md5_list):
+def http_transmit_part(part,seq,md5_list,host,port):
     t = PartTransmit(part,seq,md5_list)
-    t = mission.execute(t)
+    t = mission.execute(t,host=host,port=port)
     print t.status
     print t.data
 

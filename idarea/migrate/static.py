@@ -6,7 +6,7 @@ from idarea.common.cache.locklist import Mylist
 
 class migrate_global:
     def __init__(self):
-        self.PROC_CMDLINE = 'python migrate_run.py'
+        self.PROC_CMDLINE = 'python migrate_run.py migrate.conf'
         
         self.MIGRATE_DATA_DIR = ''
         self.MIGRATE_HOST = ''

@@ -50,9 +50,11 @@ class Mission:
         if ps:
             url = url + '?' + urllib.urlencode(ps)
         headers = t.getHeaders()
-        
-        self.conn.request(t.getMethod(),url,t.getBody(),headers)
-
+        try:
+            self.conn.request(t.getMethod(),url,t.getBody(),headers)
+        except:
+            t.response = {'status':'-1','msg':'connected refused'}
+            return t
 
         resp = self.conn.getresponse()
         t.status = resp.status
