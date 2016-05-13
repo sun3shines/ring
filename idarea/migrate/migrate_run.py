@@ -2,6 +2,7 @@
 
 import sys
 import time
+import traceback
 from idarea.common.utils import migrate_uuid_will_use,loadMigrateProc
 import idarea.migrate.static
 from idarea.migrate.static import migrateObj
@@ -52,6 +53,7 @@ def start():
                  migrateObj.MIGRATE_PORT)
     except:
         # 已经抛出异常了，但是并非是 KeyboardInterrupt,而是raise出来的
+        print traceback.format_exc()
         migrateObj.interruptEvent.set()
     print 'main thread exit'  
  

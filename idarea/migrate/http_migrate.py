@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 from idarea.common.http import jresponse
 from idarea.object.md5st import MSt
