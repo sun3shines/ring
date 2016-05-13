@@ -23,11 +23,6 @@ class migrate_global:
         self.PORT_ADDITION = 100
         self.ALL_RING_SET = get_all_ring_set()
         
-        self.PAST_PARTS = []
-        self.TRANSMIT_PARTS = []
-        self.UPGRADED_PARTS = []
-        self.LATEST_PARTS = []
-        
         self.PAST_QUEUE = Queue.Queue()
         self.TRANSMIT_QUEUE = Queue.Queue()
         self.UPGRADED_QUEUE = Queue.Queue()

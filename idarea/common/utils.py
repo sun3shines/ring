@@ -10,6 +10,7 @@ MIGRATE_SUFFIX = 'migratepid'
 OBJECT_SUFFIX = 'objectpid'
 PART_SEQ = 'seq'
 MD5_HEAD = '.head'
+MD5_TEMP = '.temp'
 SLEEP_INTERVAL = 3
 QUEUE_TIMEOUT_INTERVAL = 3
 
