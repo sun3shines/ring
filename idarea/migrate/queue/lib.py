@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 import os
 import time
@@ -33,6 +34,12 @@ def set_md5_src(part,md5,hostUuid):
     with open(path,'w') as f:
         f.write(hostUuid)
 
+def del_md5_head(part,md5):
+    
+    print 'del md5 head: %s' % (md5)
+    path = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part),md5+MD5_HEAD])
+    os.remove(path)
+    
 def get_md5_head(path):
     
     with open(path,'r') as f:
@@ -94,7 +101,14 @@ def fs_make_part(part,seq,md5_list):
         if exists:
             continue
         set_md5_src(part, md5, hostUuid)
-        
+
+    # 若源在md5list中不存在，说明当前md5文件已经传输结束了。
+    # 并可以增加API，传输part 列表，如果当前的主机中的part不在此part列表中，且所有的文件为md5.head
+    # 则说明part已经传输完毕了，可以删除part了。
+    for alread_md5_obj in alread_md5_ojbs:
+        if alread_md5_obj.endswith(MD5_HEAD) and alread_md5_obj[:-5] not in md5_list.keys():
+            del_md5_head(part, md5)
+            
 def signal_handler():
     if migrateObj.interruptEvent.isSet():  
         print 'thread finished'  

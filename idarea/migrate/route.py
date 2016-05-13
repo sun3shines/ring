@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from idarea.common.http import jresponse
-from idarea.common.urls.migrate import strPartTransmit
-from idarea.migrate.http_migrate import doPartTransmit
+from idarea.common.urls.migrate import strPartTransmit,strPartListTransmit
+from idarea.migrate.http_migrate import doPartTransmit,doMergePartList
 
 url2view = {}
 
 url2view.update({strPartTransmit:doPartTransmit})
+url2view.update({strPartListTransmit:doMergePartList})
 
 def process_request(request):
 

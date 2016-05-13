@@ -73,5 +73,5 @@ def latest_parts():
     
     while True:
         part = getQueuItem(migrateObj.LATEST_QUEUE)
-        print 'latest part: %s' %(str(part))
+        # print 'latest part: %s' %(str(part))
     

@@ -20,3 +20,10 @@ def doPartTransmit(request):
         migrateObj.LATEST_QUEUE.put(int(part))
         
     return jresponse('0','',request,200)
+
+def doMergePartList(request):
+
+    # 检查本地part列表中是否有part不存在 partlist中，
+    # 若不存在，说明此part 已在源主机中传输完毕了，若文件全为md5.head
+    # 则可以删除本地此part了。
+    return jresponse('0','',request,200)
