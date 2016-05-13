@@ -19,13 +19,16 @@ class PartTransmit(Task):
         return strPartTransmit
     
     def getBody(self):
-        return json.loads({'part':str(self.part),
+        return json.dumps({'part':str(self.part),
                            'seq':str(self.seq),
                            'md5list':self.md5_list})
     
 def http_transmit_part(part,seq,md5_list,host,port):
     t = PartTransmit(part,seq,md5_list)
     t = mission.execute(t,host=host,port=port)
-    print t.status
-    print t.data
+    print t.response
 
+if __name__ == '__main__':
+
+    pass
+#    http_transmit_part(5555,1,{},'127.0.0.1',9134)

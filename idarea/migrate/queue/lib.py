@@ -55,7 +55,7 @@ def fs_get_md5_list(part):
     for obj in all_objs:
         if obj in [PART_SEQ]:
             continue
-        md5_objs.append(int(obj))
+        md5_objs.append(obj)
 
     return md5_objs
 

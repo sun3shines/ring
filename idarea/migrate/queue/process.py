@@ -11,7 +11,7 @@ def transmit(part,seq,host,port):
     # 如果网络传输失败，则应该继续放入队列中来处理了
      
     part_dir = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)])
-    print 'transmit part: %s %s' % (part_dir,str(seq))
+    # print 'transmit part: %s %s' % (part_dir,str(seq))
     
     msg_list = {}
     md5_objs = fs_get_md5_list(part)
@@ -31,6 +31,7 @@ def transmit(part,seq,host,port):
     
 def upgrade(part,seq):
     
-    print 'upgrade part: %s %s' % (str(part),str(seq))
+    pass
+    # print 'upgrade part: %s %s' % (str(part),str(seq))
     # set_seq(part, seq)
 

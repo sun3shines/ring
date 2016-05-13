@@ -3,7 +3,7 @@
 from httplib import HTTPConnection
 import urllib
 import json
-
+import traceback
 from idarea.client.http.static import SERVER_HTTP_HOST,SERVER_HTTP_PORT,SERVER_HTTP_TIMEOUT
 
 class Mission:
@@ -53,6 +53,7 @@ class Mission:
         try:
             self.conn.request(t.getMethod(),url,t.getBody(),headers)
         except:
+            print traceback.format_exc()
             t.response = {'status':'-1','msg':'connected refused'}
             return t
 

@@ -50,19 +50,17 @@ def transmit_parts():
     
     while True:
         part_info = migrateObj.TRANSMIT_QUEUE.get()
-        print 'transmit queue get part ' + str(part_info)
-        # host,port,part,hostUuid,stepping_seq
         host = part_info[0]
         port = part_info[1]
         part = part_info[2]
         seq = part_info[4]
+        port = int(port) + migrateObj.PORT_ADDITION
         transmit(part,seq,host,port)
         
 def upgrade_parts():
     
     while True:
         part_info = migrateObj.UPGRADED_QUEUE.get()
-        print 'upgrade queue get part ' + str(part_info)
         part,upgrade_seq = part_info
         upgrade(part, upgrade_seq)
         migrateObj.LATEST_QUEUE.put(int(part))
