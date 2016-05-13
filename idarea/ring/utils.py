@@ -35,7 +35,7 @@ def get_previous_set():
     with open(ring_set_path,'r') as f:
         part_set = json.load(f)
         
-    return part_set,parent_seq
+    return part_set,int(parent_seq)
 
 def get_new_hosts():
     

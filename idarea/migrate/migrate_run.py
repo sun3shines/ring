@@ -9,22 +9,29 @@ from idarea.common.wsgi import run_wsgi
 from idarea.ring.variable import NODE_UUIDS as MIGRAGE_HOST_LIST
 from idarea.migrate.queue.thread import doProcessInitParts,doProcessPastParts,\
     doTransmitParts,doUpgradeParts,doLatestParts
-    
+from idarea.ring.host import get_startup_list
+
 def start():
 
-    pass
+    startup_list = get_startup_list()
+    
     try_times = False
     for uuid,ip,port,home in MIGRAGE_HOST_LIST:
         
         if not migrate_uuid_will_use(uuid, ip, int(port)+migrateObj.PORT_ADDITION, home):
             continue
+            
+        if uuid not in startup_list:
+            print 'host uuid not in startup list'
+            continue
+        
         try_times = True
         break
     
     if not try_times:
         print 'no uuid can be use,exit'
         sys.exit(0) 
-    
+            
     loadMigrateProc(uuid, ip, port, home)
     print 'load migrate proc finished'
     print migrateObj.MIGRATE_HOST,migrateObj.MIGRATE_PORT,migrateObj.MIGRATE_UUID

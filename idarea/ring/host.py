@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from idarea.ring.static import HOST_PROC_CONF,RING_SET_DIR
+from idarea.ring.static import HOST_PROC_CONF,RING_SET_DIR,STARTUP_PROC_LIST
 
 def getUuids():
     
@@ -19,6 +19,23 @@ def getUuids():
             uuid_list.append(tuple(info))
     return uuid_list
 
+def get_startup_list():
+
+    uuid_list = []
+    with open(STARTUP_PROC_LIST) as f:
+        for line in f.readlines():
+            if line.startswith('#'):
+                continue
+            
+            line = line.strip()
+            if not line:
+                continue
+            if len(line) != len('ewBcdo1A-wniYbw-NctK'):
+                continue
+            
+            uuid_list.append(line)
+    return uuid_list
+    
 def get_ring_list():
     
     if not os.path.exists(RING_SET_DIR):

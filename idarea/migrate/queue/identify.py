@@ -12,14 +12,15 @@ from idarea.migrate.queue.lib import get_seq,fs_get_part_list
 from idarea.migrate.queue.process import transmit,upgrade
 
 def process_init_parts():
-    
+   
+    print CURRENT_RING_SEQ 
     while True:
-        latest_seq = CURRENT_RING_SEQ
         part_objs = fs_get_part_list()
         for part_obj in part_objs:
             
             seq = get_seq(int(part_obj))
-            if seq < latest_seq:
+            if seq < CURRENT_RING_SEQ:
+                print 'put',part_obj,seq
                 migrateObj.PAST_QUEUE.put((int(part_obj),seq)) 
             else:
                 migrateObj.LATEST_QUEUE.put(int(part_obj))
@@ -32,7 +33,7 @@ def process_past_parts():
         part,seq = migrateObj.PAST_QUEUE.get()
         while True:
             stepping_seq = str(int(seq)+1)
-            stepping_ring = migrateObj.ALL_RING_SET.get(stepping_seq)
+            stepping_ring = migrateObj.ALL_RING_SET[stepping_seq]
             host,port,_,hostUuid = part2addressEx(part,stepping_ring)
             if hostUuid != migrateObj.MIGRATE_UUID:
                 migrateObj.TRANSMIT_QUEUE.put((host,port,part,hostUuid,stepping_seq))

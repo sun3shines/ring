@@ -53,7 +53,7 @@ class Mission:
         try:
             self.conn.request(t.getMethod(),url,t.getBody(),headers)
         except:
-            print traceback.format_exc()
+            # print traceback.format_exc()
             t.response = {'status':'-1','msg':'connected refused'}
             return t
 
