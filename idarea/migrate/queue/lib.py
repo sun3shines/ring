@@ -1,11 +1,12 @@
 
 import os
+import time
 import os.path
 import shutil
 from idarea.migrate.static import migrateObj
-from idarea.common.utils import PART_SEQ,MD5_HEAD
+from idarea.common.utils import PART_SEQ,MD5_HEAD,SLEEP_INTERVAL
 from idarea.ring.variable import CURRENT_RING_SEQ
-from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX
+from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX,QUEUE_TIMEOUT_INTERVAL
 from idarea.ring.variable import LOAD_HOST_LIST
 
 def get_seq(part):
@@ -94,4 +95,27 @@ def fs_make_part(part,seq,md5_list):
             continue
         set_md5_src(part, md5, hostUuid)
         
+def signal_handler():
+    if migrateObj.interruptEvent.isSet():  
+        print 'thread finished'  
+        raise KeyboardInterrupt
+       
+def signal_sleep(seconds):
+    
+    total = 0
+    while total < seconds:
+        signal_handler()
+        time.sleep(SLEEP_INTERVAL)
+        total = total + SLEEP_INTERVAL
         
+def getQueuItem(queue):
+    
+    while True:
+        try:
+            item = queue.get(timeout=QUEUE_TIMEOUT_INTERVAL)
+        except:
+            signal_handler()
+        else:
+            break    
+    return item
+

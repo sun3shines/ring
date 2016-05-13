@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import time
 from idarea.common.utils import migrate_uuid_will_use,loadMigrateProc
 import idarea.migrate.static
 from idarea.migrate.static import migrateObj
@@ -36,16 +37,23 @@ def start():
     print 'load migrate proc finished'
     print migrateObj.MIGRATE_HOST,migrateObj.MIGRATE_PORT,migrateObj.MIGRATE_UUID
 
+    migrateObj.interruptEvent.clear()
+
     doProcessInitParts().start()
     doProcessPastParts().start()
     doTransmitParts().start()
     doUpgradeParts().start()
     doLatestParts().start()
     
-    run_wsgi(migrateObj.MIGRATE_PASTE_CONF, 
-              migrateObj.MIGRATE_PASTE_APP_SECTION, 
-              migrateObj.MIGRATE_HOST,
-              migrateObj.MIGRATE_PORT)
-   
+    try:
+        run_wsgi(migrateObj.MIGRATE_PASTE_CONF, 
+                 migrateObj.MIGRATE_PASTE_APP_SECTION, 
+                 migrateObj.MIGRATE_HOST,
+                 migrateObj.MIGRATE_PORT)
+    except:
+        # 已经抛出异常了，但是并非是 KeyboardInterrupt,而是raise出来的
+        migrateObj.interruptEvent.set()
+    print 'main thread exit'  
+ 
 if __name__ == '__main__':
     start() 

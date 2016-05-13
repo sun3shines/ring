@@ -8,13 +8,15 @@ from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX
 from idarea.migrate.static import migrateObj
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.ring.query import part2addressEx
-from idarea.migrate.queue.lib import get_seq,fs_get_part_list
+from idarea.migrate.queue.lib import get_seq,fs_get_part_list,signal_handler,getQueuItem,signal_sleep
 from idarea.migrate.queue.process import transmit,upgrade
+
 
 def process_init_parts():
    
     print CURRENT_RING_SEQ 
     while True:
+        signal_handler()
         part_objs = fs_get_part_list()
         for part_obj in part_objs:
             
@@ -25,12 +27,12 @@ def process_init_parts():
             else:
                 migrateObj.LATEST_QUEUE.put(int(part_obj))
                 
-        time.sleep(60)
+        signal_sleep(60)
         
 def process_past_parts():
     
     while True:
-        part,seq = migrateObj.PAST_QUEUE.get()
+        part,seq = getQueuItem(migrateObj.PAST_QUEUE)
         while True:
             stepping_seq = str(int(seq)+1)
             stepping_ring = migrateObj.ALL_RING_SET[stepping_seq]
@@ -50,7 +52,8 @@ def process_past_parts():
 def transmit_parts():
     
     while True:
-        part_info = migrateObj.TRANSMIT_QUEUE.get()
+
+        part_info = getQueuItem(migrateObj.TRANSMIT_QUEUE)
         host = part_info[0]
         port = part_info[1]
         part = part_info[2]
@@ -61,7 +64,7 @@ def transmit_parts():
 def upgrade_parts():
     
     while True:
-        part_info = migrateObj.UPGRADED_QUEUE.get()
+        part_info = getQueuItem(migrateObj.UPGRADED_QUEUE)
         part,upgrade_seq = part_info
         upgrade(part, upgrade_seq)
         migrateObj.LATEST_QUEUE.put(int(part))
@@ -69,6 +72,6 @@ def upgrade_parts():
 def latest_parts():
     
     while True:
-        part = migrateObj.LATEST_QUEUE.get()
+        part = getQueuItem(migrateObj.LATEST_QUEUE)
         print 'latest part: %s' %(str(part))
     

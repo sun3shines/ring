@@ -10,6 +10,8 @@ MIGRATE_SUFFIX = 'migratepid'
 OBJECT_SUFFIX = 'objectpid'
 PART_SEQ = 'seq'
 MD5_HEAD = '.head'
+SLEEP_INTERVAL = 3
+QUEUE_TIMEOUT_INTERVAL = 3
 
 def get_proc_pid():
     return os.getpid()

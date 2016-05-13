@@ -2,6 +2,7 @@
 
 from idarea.ring.utils import get_all_ring_set
 import Queue
+import threading
 from idarea.common.cache.locklist import Mylist
 
 class migrate_global:
@@ -33,5 +34,7 @@ class migrate_global:
         self.LATEST_QUEUE = Queue.Queue()
         
         self.PROCESS_PART_OBJS = Mylist()
+        
+        self.interruptEvent = threading.Event()
         
 migrateObj = migrate_global()
