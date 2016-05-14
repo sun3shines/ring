@@ -31,5 +31,7 @@ class migrate_global:
         self.PROCESS_PART_OBJS = Mylist()
         
         self.interruptEvent = threading.Event()
-        
+       
+        self.MIRROR_PARTS = []
+        self.MIRROR_MD5S = [] 
 migrateObj = migrate_global()
