@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-import os.path
-import time
-from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX
-
 from idarea.migrate.static import migrateObj
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.ring.query import part2addressEx
@@ -12,7 +7,6 @@ from idarea.common.libseq import get_seq
 from idarea.common.libpart import fs_get_part_list
 from idarea.common.signal import signal_handler,signal_sleep,getQueuItem
 from idarea.migrate.queue.process import transmit,upgrade
-
 
 def process_init_parts():
    
@@ -50,11 +44,9 @@ def process_past_parts():
             
             seq = stepping_seq
         
-
 def transmit_parts():
     
     while True:
-
         part_info = getQueuItem(migrateObj.TRANSMIT_QUEUE)
         host = part_info[0]
         port = part_info[1]

@@ -3,8 +3,6 @@
 from idarea.ring.utils import get_all_ring_set
 import Queue
 import threading
-from idarea.common.cache.locklist import Mylist
-from idarea.mirror.mirror import Mirror
 
 class migrate_global:
     def __init__(self):
@@ -29,10 +27,9 @@ class migrate_global:
         self.UPGRADED_QUEUE = Queue.Queue()
         self.LATEST_QUEUE = Queue.Queue()
         
-        self.PROCESS_PART_OBJS = Mylist()
+        self.PULL_MD5_QUEUE = Queue.Queue()
+        self.PULL_MD5_LIST = []
         
         self.interruptEvent = threading.Event()
-       
-        self.mirror = Mirror()
         
 migrateObj = migrate_global()

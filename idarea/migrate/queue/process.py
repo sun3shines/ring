@@ -33,7 +33,6 @@ def transmit(part,seq,host,port):
     
 def upgrade(part,seq):
     
-    pass
-    # print 'upgrade part: %s %s' % (str(part),str(seq))
-    # set_seq(part, seq)
+    print 'upgrade part: %s %s' % (str(part),str(seq))
+    set_seq(part, seq)
 
