@@ -4,16 +4,18 @@ from idarea.migrate.static import migrateObj
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.ring.query import part2addressEx
 from idarea.common.libseq import get_seq
-from idarea.common.libpart import fs_get_part_list
+from idarea.common.libpart import get_part_list,get_md5_list
+from idarea.common.libmd5 import get_md5_head,get_md5_path,get_obj_md5
 from idarea.common.signal import signal_handler,signal_sleep,getQueuItem
 from idarea.migrate.queue.process import transmit,upgrade
+from idarea.common.utils import MD5_HEAD
 
 def process_init_parts():
    
     print CURRENT_RING_SEQ 
     while True:
         signal_handler()
-        part_objs = fs_get_part_list()
+        part_objs = get_part_list()
         for part_obj in part_objs:
             
             seq = get_seq(int(part_obj))
@@ -28,6 +30,7 @@ def process_init_parts():
 def process_past_parts():
     
     while True:
+        
         part,seq = getQueuItem(migrateObj.PAST_QUEUE)
         while True:
             stepping_seq = str(int(seq)+1)
@@ -45,7 +48,7 @@ def process_past_parts():
             seq = stepping_seq
         
 def transmit_parts():
-    
+   
     while True:
         part_info = getQueuItem(migrateObj.TRANSMIT_QUEUE)
         host = part_info[0]
@@ -67,5 +70,18 @@ def latest_parts():
     
     while True:
         part = getQueuItem(migrateObj.LATEST_QUEUE)
-        # print 'latest part: %s' %(str(part))
+        md5_objs = get_md5_list(part)
+        for md5_obj in md5_objs:
+            if not md5_obj.endswith(MD5_HEAD):
+                continue
+            md5 = get_obj_md5(md5_obj)
+            if md5 not in migrateObj.PULL_MD5_LIST:
+                migrateObj.PULL_MD5_LIST.append(md5)
+                hostUuid = get_md5_head(get_md5_path(part, md5_obj))
+                migrateObj.PULL_MD5_QUEUE.put((md5,hostUuid,part)) 
+        
     
+def transmit_md5s():
+    while True:
+        md5,hostUuid,part = getQueuItem(migrateObj.PULL_MD5_QUEUE)
+        print 'recv file %s %s: ' % (md5,str(part))

@@ -7,7 +7,7 @@ from idarea.common.utils import MD5_HEAD
 
 def set_md5_src(part,md5,hostUuid):
     
-    print 'set md5 src hostUuid: %s %s' % (md5,hostUuid)
+    # print 'set md5 src hostUuid: %s %s' % (md5,hostUuid)
     path = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part),md5+MD5_HEAD])
     with open(path,'w') as f:
         f.write(hostUuid)
@@ -23,3 +23,12 @@ def get_md5_head(path):
     with open(path,'r') as f:
         hostUuid = f.read()
     return hostUuid
+
+def get_md5_path(part,md5):
+    
+    part_dir = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)])
+    md5_obj_path = '/'.join([part_dir,md5])
+    return md5_obj_path
+
+def get_obj_md5(md5_obj):
+    return md5_obj[:-5]

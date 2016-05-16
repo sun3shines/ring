@@ -15,7 +15,7 @@ def doPartTransmit(request):
     seq = int(param.get('seq'))
     md5_list = param.get('md5list')
     merge_part(part, seq, md5_list)
-    
+    # 对于网络的part同样会执行latest，past，upgrade 或者transmit操作了。
     if seq < CURRENT_RING_SEQ:
         migrateObj.PAST_QUEUE.put((int(part),seq)) 
     else:

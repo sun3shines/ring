@@ -10,7 +10,7 @@ from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX,QUEUE_TIMEOUT_INTERVAL
 from idarea.ring.variable import LOAD_HOST_LIST
 from idarea.common.libseq import set_seq
-from idarea.common.libmd5 import set_md5_src,del_md5_head
+from idarea.common.libmd5 import set_md5_src,del_md5_head,get_obj_md5
 
 def get_http_addr(dstHostUuid):
     
@@ -21,12 +21,14 @@ def get_http_addr(dstHostUuid):
             break
     return host,port
 
-def fs_get_md5_list(part):
+def get_md5_list(part):
     
     part_dir = '/'.join([migrateObj.MIGRATE_DATA_DIR,str(part)])
     md5_objs = []
     all_objs = os.listdir(part_dir)
     for obj in all_objs:
+        if len(obj) not in [32,37]:
+            continue
         if obj in [PART_SEQ]:
             continue
         if obj.endswith(MD5_TEMP):
@@ -35,7 +37,7 @@ def fs_get_md5_list(part):
 
     return md5_objs
 
-def fs_get_part_list():
+def get_part_list():
 
     part_objs = []
     all_objs = os.listdir(migrateObj.MIGRATE_DATA_DIR)
@@ -61,7 +63,7 @@ def merge_part(part,seq,md5_list):
         
     set_seq(part, seq)
     
-    alread_md5_ojbs = fs_get_md5_list(part)
+    alread_md5_ojbs = get_md5_list(part)
     for md5,hostUuid in md5_list.items():
         exists = False
         for alread_md5 in alread_md5_ojbs:
@@ -80,7 +82,7 @@ def merge_part(part,seq,md5_list):
     # 并可以增加API，传输part 列表，如果当前的主机中的part不在此part列表中，且所有的文件为md5.head
     # 则说明part已经传输完毕了，可以删除part了。
     for alread_md5_obj in alread_md5_ojbs:
-        if alread_md5_obj.endswith(MD5_HEAD) and alread_md5_obj[:-5] not in md5_list.keys():
+        if alread_md5_obj.endswith(MD5_HEAD) and get_obj_md5(alread_md5_obj) not in md5_list.keys():
             del_md5_head(part, md5)
             
             

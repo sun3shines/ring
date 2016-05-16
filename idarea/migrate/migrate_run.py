@@ -10,7 +10,7 @@ from idarea.common.wsgi import run_wsgi
 
 from idarea.ring.variable import NODE_UUIDS as MIGRAGE_HOST_LIST
 from idarea.migrate.queue.thread import doProcessInitParts,doProcessPastParts,\
-    doTransmitParts,doUpgradeParts,doLatestParts
+    doTransmitParts,doUpgradeParts,doLatestParts,doTransmitMD5s
 from idarea.ring.host import get_startup_list
 
 def start():
@@ -45,6 +45,7 @@ def start():
     doTransmitParts().start()
     doUpgradeParts().start()
     doLatestParts().start()
+    doTransmitMD5s().start()
     
     try:
         run_wsgi(migrateObj.MIGRATE_PASTE_CONF, 
