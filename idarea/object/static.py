@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-PROC_CMDLINE = 'python object_run.py'
+PROC_CMDLINE = 'python object_run.py object.conf'
 
 PROC_DATA_DIR = ''
 PROC_HOST = ''

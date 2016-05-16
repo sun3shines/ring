@@ -20,6 +20,21 @@ def doObjectPut(request):
     
     return jresponse('0','',request,200)
 
+def doObjectDel(request):
+    
+    param = json.loads(request.body)
+    md5 = param.get('md5') 
+    part = param.get('part')
+
+    print part
+    
+    m = MSt(str(part),md5)
+    if not m.exists:
+        return jresponse('0','file does not exists',request,200)
+    m.delete()
+    
+    return jresponse('0','',request,200)
+
 def doObjectGet(request):
     
     param = json.loads(request.body)

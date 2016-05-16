@@ -11,11 +11,12 @@ from idarea.common.wsgi import run_wsgi
 from idarea.ring.variable import NODE_UUIDS as MIGRAGE_HOST_LIST
 from idarea.migrate.queue.thread import doProcessInitParts,doProcessPastParts,\
     doTransmitParts,doUpgradeParts,doLatestParts,doTransmitMD5s
+from idarea.ring.static import MIGRATE_STARTUP_LIST
 from idarea.ring.host import get_startup_list
 
 def start():
 
-    startup_list = get_startup_list()
+    startup_list = get_startup_list(MIGRATE_STARTUP_LIST)
     
     try_times = False
     for uuid,ip,port,home in MIGRAGE_HOST_LIST:

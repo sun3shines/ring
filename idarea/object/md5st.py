@@ -25,6 +25,9 @@ class MSt:
     def parent(self):
         return '/'.join([self.prefix,self.part])
     
+    def delete(self):
+        os.remove(self.path)
+        
     def get(self):
         
         try:

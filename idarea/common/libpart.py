@@ -8,18 +8,8 @@ from idarea.migrate.static import migrateObj
 from idarea.common.utils import PART_SEQ,MD5_HEAD,SLEEP_INTERVAL,MD5_TEMP
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX,QUEUE_TIMEOUT_INTERVAL
-from idarea.ring.variable import LOAD_HOST_LIST
 from idarea.common.libseq import set_seq
 from idarea.common.libmd5 import set_md5_src,del_md5_head,get_obj_md5
-
-def get_http_addr(dstHostUuid):
-    
-    for host_info in LOAD_HOST_LIST:
-        if host_info[0] == dstHostUuid:
-            host = host_info[1]
-            port = int(host_info[2])  
-            break
-    return host,port
 
 def get_md5_list(part):
     

@@ -3,3 +3,5 @@
 strObjectPut = '/object/put'
 
 strObjectGet = '/object/get'
+
+strObjectDel = '/object/del'

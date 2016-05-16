@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from idarea.ring.static import HOST_PROC_CONF,RING_SET_DIR,STARTUP_PROC_LIST
+from idarea.ring.static import HOST_PROC_CONF,RING_SET_DIR
 
 def getUuids():
     
@@ -19,10 +19,10 @@ def getUuids():
             uuid_list.append(tuple(info))
     return uuid_list
 
-def get_startup_list():
+def get_startup_list(path):
 
     uuid_list = []
-    with open(STARTUP_PROC_LIST) as f:
+    with open(path) as f:
         for line in f.readlines():
             if line.startswith('#'):
                 continue

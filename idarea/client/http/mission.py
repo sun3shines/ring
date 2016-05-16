@@ -100,9 +100,8 @@ class Mission:
                 url = url + '?' + urllib.urlencode(ps)
 
             headers = t.getHeaders()
-           
             self.conn.request(t.getMethod(),url,t.getBody(),headers)
-
+           
             resp = self.conn.getresponse()
             while True:
                 data = resp.read(self.readsize)

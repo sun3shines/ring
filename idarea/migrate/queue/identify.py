@@ -5,10 +5,12 @@ from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.ring.query import part2addressEx
 from idarea.common.libseq import get_seq
 from idarea.common.libpart import get_part_list,get_md5_list
-from idarea.common.libmd5 import get_md5_head,get_md5_path,get_obj_md5
+from idarea.common.libmd5 import get_md5_head,get_md5_head_path,get_obj_md5,\
+    download_remote_md5,delete_remote_md5
 from idarea.common.signal import signal_handler,signal_sleep,getQueuItem
 from idarea.migrate.queue.process import transmit,upgrade
 from idarea.common.utils import MD5_HEAD
+from idarea.common.libhost import get_http_addr
 
 def process_init_parts():
    
@@ -77,11 +79,14 @@ def latest_parts():
             md5 = get_obj_md5(md5_obj)
             if md5 not in migrateObj.PULL_MD5_LIST:
                 migrateObj.PULL_MD5_LIST.append(md5)
-                hostUuid = get_md5_head(get_md5_path(part, md5_obj))
+                hostUuid = get_md5_head(get_md5_head_path(part, md5))
                 migrateObj.PULL_MD5_QUEUE.put((md5,hostUuid,part)) 
         
     
 def transmit_md5s():
     while True:
         md5,hostUuid,part = getQueuItem(migrateObj.PULL_MD5_QUEUE)
-        print 'recv file %s %s: ' % (md5,str(part))
+        host,port = get_http_addr(hostUuid)
+        download_remote_md5(host, port, part, md5)
+        delete_remote_md5(host, port, part, md5)
+        
