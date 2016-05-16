@@ -3,7 +3,7 @@
 import json
 from idarea.common.http import jresponse
 from idarea.object.md5st import MSt
-from webob import Request, Response
+from idarea.common.webobx import Request, Response
 
 def doObjectPut(request):
     

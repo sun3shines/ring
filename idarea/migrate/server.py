@@ -3,7 +3,7 @@
 from __future__ import with_statement
 
 from eventlet import Timeout
-from webob import Request, Response
+from idarea.common.webobx import Request, Response
 
 from idarea.migrate.route import process_request
 

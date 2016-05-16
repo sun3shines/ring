@@ -1,6 +1,7 @@
 
 from idarea.common.cache.base import Base
 class Mylist(Base):
+    
     def put(self,val):
         return self.putl(val)
     

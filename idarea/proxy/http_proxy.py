@@ -2,9 +2,10 @@
 
 import json
 from idarea.common.http import jresponse
-from idarea.ring.query import objid2address,CURRENT_RING_SEQ
+from idarea.ring.query import objid2address
+from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.proxy.transmit import sendfile,recvfile
-from webob import Request, Response
+from idarea.common.webobx import Request, Response
 
 def doProxyPut(request):
 

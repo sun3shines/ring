@@ -24,6 +24,9 @@ class Base(object):
     def lhas_val(self,val):
         return val in self.l
     
+    def dhas_val(self,key):
+        return self.d.has_key(key)
+    
     def putd(self,key,val):
         if self.lock.acquire():
             self.d.update({key:val})

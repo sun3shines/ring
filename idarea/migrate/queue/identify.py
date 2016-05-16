@@ -8,7 +8,9 @@ from idarea.common.utils import OBJECT_SUFFIX,MIGRATE_SUFFIX
 from idarea.migrate.static import migrateObj
 from idarea.ring.variable import CURRENT_RING_SEQ
 from idarea.ring.query import part2addressEx
-from idarea.migrate.queue.lib import get_seq,fs_get_part_list,signal_handler,getQueuItem,signal_sleep
+from idarea.common.libseq import get_seq
+from idarea.common.libpart import fs_get_part_list
+from idarea.common.signal import signal_handler,signal_sleep,getQueuItem
 from idarea.migrate.queue.process import transmit,upgrade
 
 

@@ -2,7 +2,9 @@
 
 import os
 from idarea.migrate.static import migrateObj
-from idarea.migrate.queue.lib import get_md5_head,set_seq,fs_get_md5_list
+from idarea.common.libpart import fs_get_md5_list
+from idarea.common.libseq import set_seq
+from idarea.common.libmd5 import get_md5_head
 from idarea.common.utils import MD5_HEAD
 from idarea.client.transmit import http_transmit_part
 

@@ -4,6 +4,7 @@ from idarea.ring.utils import get_all_ring_set
 import Queue
 import threading
 from idarea.common.cache.locklist import Mylist
+from idarea.mirror.mirror import Mirror
 
 class migrate_global:
     def __init__(self):
@@ -32,6 +33,6 @@ class migrate_global:
         
         self.interruptEvent = threading.Event()
        
-        self.MIRROR_PARTS = []
-        self.MIRROR_MD5S = [] 
+        self.mirror = Mirror()
+        
 migrateObj = migrate_global()
