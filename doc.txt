@@ -21,6 +21,8 @@ latest/pull_md5
 
 数据来源network_md5_head/文件系统/object服务
 
+模拟队列作为信号，唤醒线程服务
+
 主机分类 a级，b级，c级。数据迁移完成后，最终成为a级节点
 
 采用进程模拟分布式多节点主机行为，并使用startlist控制进程启动
