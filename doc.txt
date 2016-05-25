@@ -11,7 +11,7 @@ object get/put/del
 
 migrate tansmit part/head/data
 
-数据不使用rsync迁移，采用线性模拟ring升级轨迹进行迁移
+数据不使用rsync迁移，采用线性模拟ring升级part分区轨迹进行迁移
 
 ring set 的seq 升级后，part 执行 分类操作行为
 
@@ -30,3 +30,5 @@ latest/pull_md5
 数据迁移，扫描所有的part，seq为最高，根据md5head传输数据源信息
 
 数据迁移，检测数据可用性，不采用备份。
+
+在此基础上，可支持replica/weight/zone/random改进
